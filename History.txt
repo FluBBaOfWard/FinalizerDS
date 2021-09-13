@@ -1,0 +1,24 @@
+FinalizerDS revision history
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+V0.3.1 - 2021-03-27 (FluBBa)
+	Added all games.
+
+V0.3.0 - 2021-03-23 (FluBBa)
+	Added load/save state.
+
+V0.2.6 - 2020-06-08 (FluBBa)
+	Added support for flipped sprites.
+
+V0.2.5 - 2018-07-28 (FluBBa)
+	Fixes to graphic.
+
+V0.2.0 - 2018-05-10 (FluBBa)
+	Code clean up.
+
+V0.1.0 - 2016-08-30 (FluBBa)
+	Initial release, plays Finalizer.
+
+V0.0.0 - 2016-08-22 (FluBBa)
+	Started coding.

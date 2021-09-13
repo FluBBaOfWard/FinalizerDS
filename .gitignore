@@ -1,0 +1,7 @@
+arm7/build
+*.elf
+arm9/build
+*.zip
+arm9/include/finalizr
+FinalizerDS.xcodeproj/project.xcworkspace/xcuserdata
+*.nds

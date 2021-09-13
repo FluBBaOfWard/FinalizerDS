@@ -1,0 +1,24 @@
+FinalizerDS To do
+-----------------
+
+
+
+Misc:
+	Pad left and right to switch Tabs in GUI?
+
+Grafik:
+	See K005849_todo.txt.
+
+CPU:
+	Timing?
+
+GUI:
+	Show Coin counter.
+
+Sound:
+	Investigate distortion!
+	Other sound chip?
+
+Games:
+	Better rom loading.
+
