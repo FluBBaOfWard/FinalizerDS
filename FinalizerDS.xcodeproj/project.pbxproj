@@ -151,8 +151,8 @@
 		9CB8125824C3778700A02C09 /* SN76496 */ = {
 			isa = PBXGroup;
 			children = (
-				9CB8125D24C3778700A02C09 /* SN76496_todo.txt */,
 				9CBEE0EE26EFE2320095347A /* README.md */,
+				9CB8125D24C3778700A02C09 /* SN76496_todo.txt */,
 				9CB8125F24C3778700A02C09 /* History.txt */,
 				9CB8125924C3778700A02C09 /* Version.h */,
 				9CB8125B24C3778700A02C09 /* SN76496.h */,
@@ -205,8 +205,8 @@
 		9CB8127524C377A200A02C09 /* K005849 */ = {
 			isa = PBXGroup;
 			children = (
-				9CB8127624C377A200A02C09 /* K005849_todo.txt */,
 				9CBEE0EB26EFE1C80095347A /* README.md */,
+				9CB8127624C377A200A02C09 /* K005849_todo.txt */,
 				9CB8127B24C377A200A02C09 /* History.txt */,
 				9CB8127724C377A200A02C09 /* Version.h */,
 				9CB8127924C377A200A02C09 /* K005849.h */,
@@ -220,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				9C7BB95925FF448400EA9C9C /* graphics */,
-				9CB8128424C377A200A02C09 /* unzip */,
+				9CB8128424C377A200A02C09 /* Unzip */,
 				9CBEE0EA26EFE17B0095347A /* README.md */,
 				9CB8128924C377A200A02C09 /* nds_asm.h */,
 				9CBEE0E926EFE17B0095347A /* EmuSettings.h */,
@@ -238,7 +238,7 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		9CB8128424C377A200A02C09 /* unzip */ = {
+		9CB8128424C377A200A02C09 /* Unzip */ = {
 			isa = PBXGroup;
 			children = (
 				9CB8128624C377A200A02C09 /* puff.h */,
@@ -246,14 +246,14 @@
 				9CB8128724C377A200A02C09 /* unzipnds.h */,
 				9CB8128524C377A200A02C09 /* unzipnds.c */,
 			);
-			path = unzip;
+			path = Unzip;
 			sourceTree = "<group>";
 		};
 		9CB8129124C377A200A02C09 /* ARM6809 */ = {
 			isa = PBXGroup;
 			children = (
-				9CB8129724C377A200A02C09 /* ARM6809ToDo.txt */,
 				9CBEE0EC26EFE1D30095347A /* README.md */,
+				9CB8129724C377A200A02C09 /* ARM6809ToDo.txt */,
 				9C4B985325BC67FC00A3F3B0 /* History.txt */,
 				9C4B985425BC67FC00A3F3B0 /* Version.h */,
 				9C4B985225BC67FB00A3F3B0 /* ARM6809.h */,
@@ -338,7 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVKITARM = $DEVKITPRO/devkitarm;
-				DEVKITPRO = /opt/devkitpro_old;
+				DEVKITPRO = /opt/devkitpro;
 				PRODUCT_NAME = FinalizerDS;
 			};
 			name = Debug;

@@ -6,7 +6,7 @@ FinalizerDS To do
 Misc:
 	Pad left and right to switch Tabs in GUI?
 
-Grafik:
+Graphic:
 	See K005849_todo.txt.
 
 CPU:
