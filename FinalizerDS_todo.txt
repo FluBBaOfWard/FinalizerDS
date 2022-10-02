@@ -20,5 +20,4 @@ Sound:
 	Other sound chip?
 
 Games:
-	Better rom loading.
 
