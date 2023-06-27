@@ -76,6 +76,8 @@ gfxReset:					;@ Called with CPU reset
 	ldr r2,=m6809SetFIRQPin
 	ldr r3,=emuRAM
 	bl k005885Reset0
+	ldrb r0,gfxChipType
+	bl k005849SetType
 	bl bgInit
 
 	ldr r0,=gGammaValue
@@ -247,7 +249,6 @@ scrolLoop2:
 	bne scrolLoop2
 
 
-
 	mov r6,#REG_BASE
 	strh r6,[r6,#REG_DMA0CNT_H]	;@ DMA0 stop
 
@@ -317,9 +318,9 @@ endFrame:					;@ Called just before screen end (~line 240)	(r0-r2 safe to use)
 	ldr r0,=scrollTemp
 	bl copyScrollValues
 	mov r0,#BG_GFX			;@ Destination
-	bl convertTileMap5885
+	bl convertTileMap
 	ldr r0,tmpOamBuffer		;@ Destination
-	bl convertSprites5885
+	bl convertSprites
 ;@--------------------------
 
 	ldr r0,dmaOamBuffer
@@ -344,7 +345,7 @@ tmpOamBuffer:		.long OAM_BUFFER1
 dmaOamBuffer:		.long OAM_BUFFER2
 
 oamBufferReady:		.long 0
-emuPaletteReady:	.long 0
+
 ;@----------------------------------------------------------------------------
 k005849Reset0:			;@ r0=periodicIrqFunc, r1=frameIrqFunc, r2=frame2IrqFunc
 ;@----------------------------------------------------------------------------
@@ -432,14 +433,11 @@ gfxState:
 adjustBlend:
 	.long 0
 windowTop:
-	.long 0
-wTop:
-	.long 0,0,0		;@ windowTop  (this label too)   L/R scrolling in unscaled mode
+	.long 0,0,0,0				;@ L/R scrolling in unscaled mode
 
-	.byte 0
-	.byte 0
-	.byte 0
-	.byte 0
+gfxChipType:
+	.byte CHIP_K005885			;@ K005849 or K005885
+	.space 3
 
 	.section .bss
 scrollTemp:
@@ -448,8 +446,6 @@ OAM_BUFFER1:
 	.space 0x400
 OAM_BUFFER2:
 	.space 0x400
-DMA0BUFF:
-	.space 0x200
 SCROLLBUFF:
 	.space 0x400*3				;@ Scrollbuffer.
 MAPPED_RGB:

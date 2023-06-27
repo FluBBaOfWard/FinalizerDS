@@ -2,8 +2,9 @@ FinalizerDS revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.3.2 - 2022-10-02 (FluBBa)
-	Cleaned up source.
+V0.3.2 - 2023-06-27 (FluBBa)
+	Added new debug menu.
+	Better menu traversing.
 
 V0.3.1 - 2021-03-27 (FluBBa)
 	Added all games.

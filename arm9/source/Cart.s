@@ -225,7 +225,7 @@ romNum:
 	.long 0						;@ romnumber
 romInfo:						;@ Keep emuflags/BGmirror together for savestate/loadstate
 emuFlags:
-	.byte 0						;@ emuflags      (label this so GUI.c can take a peek) see EmuSettings.h for bitfields
+	.byte 0						;@ emuflags      (label this so Gui.c can take a peek) see EmuSettings.h for bitfields
 //scaling:
 	.byte SCALED				;@ (display type)
 	.byte 0,0					;@ (sprite follow val)
