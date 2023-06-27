@@ -6,9 +6,10 @@ You should still be able to enjoy the game though. =)
 
 ## How to use
 
-Depending on your flashcart you might have to DLDI patch the emulator.
-Create a folder named "acds" in either the root of your flash card or in the
-data folder. Now put finalizr.zip into a folder where you have arcade roms.
+1. Create a "acDS" directory either in the root of your card or in the data
+directory (eg h:\data\acds). This is where settings and save files end up.
+2. Now put finalizr.zip into a folder where you have (arcade) roms.
+3. Depending on your flashcart you might have to DLDI patch the emulator.
 
 When the emulator starts, you can either press L+R or tap on the screen to open
 up the menu (the emulator tries to load Finalizer automagically on startup).
@@ -35,7 +36,7 @@ To select between the tabs use R & L or the touchscreen.
   * Swap A/B: Swap which NDS button is mapped to which arcade button.
 * Display:
   * Display: Here you can select if you want scaled or unscaled screenmode.
-   Unscaled mode:  L & R buttons scroll the screen up and down.
+   Unscaled mode: L & R buttons scroll the screen up and down.
   * Scaling: Here you can select if you want flicker or barebones lineskip.
   * Gamma: Lets you change the gamma ("brightness").
 * Settings:
