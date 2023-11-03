@@ -3,6 +3,7 @@
 #include "Finalizer.h"
 #include "Gfx.h"
 //#include "SN76496/SN76496.h"
+#include "cpu.h"
 #include "K005849/K005849.h"
 #include "ARM6809/ARM6809.h"
 
@@ -11,7 +12,7 @@ int packState(void *statePtr) {
 	int size = 0;
 //	size += sn76496SaveState(statePtr+size, &sn76496_0);
 	size += k005849SaveState(statePtr+size, &k005885_0);
-	size += m6809SaveState(statePtr+size, &m6809OpTable);
+	size += m6809SaveState(statePtr+size, &m6809CPU0);
 	return size;
 }
 
@@ -19,7 +20,7 @@ void unpackState(const void *statePtr) {
 	int size = 0;
 //	size += sn76496LoadState(&sn76496_0, statePtr+size);
 	size += k005849LoadState(&k005885_0, statePtr+size);
-	m6809LoadState(&m6809OpTable, statePtr+size);
+	m6809LoadState(&m6809CPU0, statePtr+size);
 }
 
 int getStateSize() {

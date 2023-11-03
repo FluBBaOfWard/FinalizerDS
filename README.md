@@ -81,4 +81,4 @@ Fredrik Ahlström
 
 Twitter @TheRealFluBBa
 
-http://www.github.com/FluBBaOfWard
+https://www.github.com/FluBBaOfWard

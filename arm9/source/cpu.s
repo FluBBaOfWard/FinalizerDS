@@ -8,11 +8,13 @@
 
 	.global run
 	.global stepFrame
+	.global cpuInit
 	.global cpuReset
 	.global frameTotal
 	.global waitMaskIn
 	.global waitMaskOut
 
+	.global m6809CPU0
 
 	.syntax unified
 	.arm
@@ -53,8 +55,8 @@ runStart:
 
 	bl refreshEMUjoypads		;@ Z=1 if communication ok
 
-	ldr m6809optbl,=m6809OpTable
-	add r0,m6809optbl,#m6809Regs
+	ldr m6809ptr,=m6809CPU0
+	add r0,m6809ptr,#m6809Regs
 	ldmia r0,{m6809f-m6809pc,m6809sp}	;@ Restore M6809 state
 
 ;@----------------------------------------------------------------------------
@@ -68,7 +70,7 @@ konamiFrameLoop:
 	bne konamiFrameLoop
 ;@----------------------------------------------------------------------------
 
-	add r0,m6809optbl,#m6809Regs
+	add r0,m6809ptr,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
 
 	ldr r1,=fpsValue
@@ -102,8 +104,8 @@ stepFrame:					;@ Return after 1 frame
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{r4-r11,lr}
 
-	ldr m6809optbl,=m6809OpTable
-	add r0,m6809optbl,#m6809Regs
+	ldr m6809ptr,=m6809CPU0
+	add r0,m6809ptr,#m6809Regs
 	ldmia r0,{m6809f-m6809pc,m6809sp}	;@ Restore M6809 state
 ;@----------------------------------------------------------------------------
 konamiStepLoop:
@@ -115,7 +117,7 @@ konamiStepLoop:
 	cmp r0,#0
 	bne konamiStepLoop
 ;@----------------------------------------------------------------------------
-	add r0,m6809optbl,#m6809Regs
+	add r0,m6809ptr,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
 
 	ldr r1,frameTotal
@@ -124,6 +126,11 @@ konamiStepLoop:
 
 	ldmfd sp!,{r4-r11,lr}
 	bx lr
+;@----------------------------------------------------------------------------
+cpuInit:			;@ Called by machineInit
+;@----------------------------------------------------------------------------
+	ldr r0,=m6809CPU0
+	b m6809Init
 ;@----------------------------------------------------------------------------
 cpuReset:		;@ Called by loadCart/resetGame
 ;@----------------------------------------------------------------------------
@@ -134,12 +141,12 @@ cpuReset:		;@ Called by loadCart/resetGame
 	str r0,cyclesPerScanline
 
 ;@--------------------------------------
-	ldr m6809optbl,=m6809OpTable
+	ldr m6809ptr,=m6809CPU0
 
 	adr r4,cpuMapData
 	bl mapMemory
 
-	mov r0,m6809optbl
+	mov r0,m6809ptr
 	bl m6809Reset
 	ldmfd sp!,{lr}
 	bx lr
@@ -165,6 +172,13 @@ cpuDataLoop:
 	movs r5,r5,lsr#1
 	bne cpuDataLoop
 	ldmfd sp!,{pc}
+;@----------------------------------------------------------------------------
+#ifdef NDS
+	.section .dtcm, "ax", %progbits				;@ For the NDS
+#endif
+;@----------------------------------------------------------------------------
+m6809CPU0:
+	.space m6809Size
 ;@----------------------------------------------------------------------------
 	.end
 #endif // #ifdef __arm__
