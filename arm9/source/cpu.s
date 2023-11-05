@@ -6,15 +6,15 @@
 
 #define CYCLE_PSL (H_PIXEL_COUNT/2)
 
+	.global frameTotal
+	.global waitMaskIn
+	.global waitMaskOut
+	.global m6809CPU0
+
 	.global run
 	.global stepFrame
 	.global cpuInit
 	.global cpuReset
-	.global frameTotal
-	.global waitMaskIn
-	.global waitMaskOut
-
-	.global m6809CPU0
 
 	.syntax unified
 	.arm
@@ -174,8 +174,11 @@ cpuDataLoop:
 	ldmfd sp!,{pc}
 ;@----------------------------------------------------------------------------
 #ifdef NDS
-	.section .dtcm, "ax", %progbits				;@ For the NDS
+	.section .dtcm, "ax", %progbits		;@ For the NDS
+#elif GBA
+	.section .iwram, "ax", %progbits	;@ For the GBA
 #endif
+	.align 2
 ;@----------------------------------------------------------------------------
 m6809CPU0:
 	.space m6809Size

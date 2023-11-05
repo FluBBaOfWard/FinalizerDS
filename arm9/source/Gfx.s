@@ -5,31 +5,32 @@
 #include "ARM6809/ARM6809.i"
 #include "K005849/K005849.i"
 
+	.global gfxState
+	.global gFlicker
+	.global gTwitch
+	.global gScaling
+	.global gGfxMask
+	.global yStart
+	.global k005849_0
+	.global k005885_0
+	.global emuRAM
+
 	.global gfxInit
 	.global gfxReset
 	.global paletteInit
 	.global paletteTxAll
 	.global refreshGfx
 	.global endFrame
-	.global gfxState
-	.global gFlicker
-	.global gTwitch
-	.global gScaling
-	.global gGfxMask
 	.global vblIrqHandler
-	.global yStart
 
-	.global k005849_0
 	.global k005849Ram_0R
 	.global k005849_0R
 	.global k005849Ram_0W
 	.global k005849_0W
-	.global k005885_0
 	.global k005885Ram_0R
 	.global k005885_0R
 	.global k005885Ram_0W
 	.global k005885_0W
-	.global emuRAM
 
 
 	.syntax unified

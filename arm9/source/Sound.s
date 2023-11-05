@@ -2,14 +2,14 @@
 
 #include "c_defs.h"
 
+	.extern pauseEmulation
+
 	.global soundInit
 	.global soundReset
 	.global setMuteSoundGUI
 	.global setMuteSoundGame
 	.global SN_0_W
 	.global VLM_R
-
-	.extern pauseEmulation
 
 
 	.syntax unified
