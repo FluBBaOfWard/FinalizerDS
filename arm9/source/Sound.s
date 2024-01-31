@@ -30,7 +30,7 @@ soundInit:
 soundReset:
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
-//	ldr snptr,=sn76496_0
+//	ldr r1,=sn76496_0
 	mov r0,#1
 //	bl sn76496Reset				;@ sound
 	ldmfd sp!,{lr}
