@@ -16,8 +16,8 @@
 	.global ioReset
 	.global convertInput
 	.global refreshEMUjoypads
-	.global IO_R
-	.global IO_W
+	.global FinalizerIO_R
+	.global FinalizerIO_W
 
 	.syntax unified
 	.arm
@@ -115,7 +115,7 @@ Input1_R:		;@ Player 2
 	eor r0,r0,#0xFF
 	bx lr
 ;@----------------------------------------------------------------------------
-Input2_R:		;@ Coins, Start & Service
+Input2_R_Finalizer:		;@ Coins, Start & Service
 ;@----------------------------------------------------------------------------
 ;@	mov r11,r11					;@ No$GBA breakpoint
 	ldrb r0,joy2State
@@ -145,7 +145,7 @@ Input5_R:
 	bx lr
 
 ;@----------------------------------------------------------------------------
-IO_R:			;@ I/O read
+FinalizerIO_R:			;@ I/O read
 ;@----------------------------------------------------------------------------
 	bics r2,addy,#0x0800
 	beq Input5_R
@@ -158,13 +158,13 @@ IO_R:			;@ I/O read
 ;@---------------------------
 	b k005885_0R
 ;@io_read_tbl
-	.long Input2_R				;@ 0x0810
+	.long Input2_R_Finalizer	;@ 0x0810
 	.long Input0_R				;@ 0x0811
 	.long Input1_R				;@ 0x0812
 	.long Input3_R				;@ 0x0813
 
 ;@----------------------------------------------------------------------------
-IO_W:		;@I/O write
+FinalizerIO_W:		;@I/O write
 ;@----------------------------------------------------------------------------
 	bic r2,addy,#0x0800
 	cmp r2,#0x0018
@@ -180,37 +180,6 @@ IO_W:		;@I/O write
 	cmp r2,#0x001D
 	beq watchDogW				;@ Sound cpu latch byte
 	b k005885_0W
-
-;@----------------------------------------------------------------------------
-IO_R_:			;@ I/O read
-;@----------------------------------------------------------------------------
-	cmp addy,#0x3100
-	beq Input4_R
-	cmp addy,#0x3200
-	beq Input5_R
-	bic r2,addy,#3
-	cmp r2,#0x3300
-	and r2,addy,#3
-	ldreq pc,[pc,r2,lsl#2]
-;@---------------------------
-	b empty_IO_R
-;@io_read_tbl
-	.long Input2_R				;@ 0x3300
-	.long Input0_R				;@ 0x3301
-	.long Input1_R				;@ 0x3302
-	.long Input3_R				;@ 0x3303
-
-;@----------------------------------------------------------------------------
-IO_W_:		;@I/O write
-;@----------------------------------------------------------------------------
-	cmp addy,#0x3100
-//	cmpne r1,#0x3200
-	beq SN_0_W
-	cmp addy,#0x3000
-	beq coinW
-	cmp addy,#0x3300
-	beq watchDogW
-	b empty_W
 
 ;@----------------------------------------------------------------------------
 watchDogW:

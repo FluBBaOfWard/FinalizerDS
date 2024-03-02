@@ -4,7 +4,7 @@
 #include "ARM6809/ARM6809.i"
 #include "K005849/K005849.i"
 
-#define CYCLE_PSL (H_PIXEL_COUNT/2)
+#define CYCLE_PSL (H_PIXEL_COUNT/4)
 
 	.global frameTotal
 	.global waitMaskIn
@@ -136,7 +136,7 @@ cpuReset:		;@ Called by loadCart/resetGame
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
 
-;@---Speed - 3.072MHz / 60Hz		;Finalizer.
+;@---Speed - 1.536MHz / 60Hz		;Finalizer.
 	ldr r0,=CYCLE_PSL
 	str r0,cyclesPerScanline
 

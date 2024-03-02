@@ -268,7 +268,9 @@ scrolLoop2:
 
 	ldr koptr,=k005885_0
 	ldrb r2,[koptr,#sprBank]
-	ldr r0,=0x000A
+	cmp r7,#CHIP_K005849
+	ldrheq r0,GFX_BG0CNT
+	ldrne r0,=0x000A
 	and r1,r2,#0x3				;@ Tile bank
 //	add r0,r0,r1,lsl#3
 	strh r0,[r6,#REG_BG0CNT]

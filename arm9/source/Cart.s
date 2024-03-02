@@ -61,14 +61,12 @@ loadCart: 		;@ Called from C:  r0=rom number, r1=emuflags
 ;@----------------------------------------------------------------------------
 doCpuMappingFinalizer:
 ;@----------------------------------------------------------------------------
-	ldr r0,=m6809CPU0
-	ldr r1,=mainCpu
-	ldr r1,[r1]
 	adr r2,finalizerMapping
-	b m6809Mapper
+	b do6809MainCpuMapping
+
 ;@----------------------------------------------------------------------------
 finalizerMapping:						;@ Finalizer
-	.long emptySpace, IO_R, IO_W								;@ IO
+	.long emptySpace, FinalizerIO_R, FinalizerIO_W				;@ IO
 	.long emuRAM, k005885Ram_0R, k005885Ram_0W					;@ Graphic
 	.long 0, mem6809R2, rom_W									;@ ROM
 	.long 1, mem6809R3, rom_W									;@ ROM
@@ -77,6 +75,12 @@ finalizerMapping:						;@ Finalizer
 	.long 4, mem6809R6, rom_W									;@ ROM
 	.long 5, mem6809R7, rom_W									;@ ROM
 
+;@----------------------------------------------------------------------------
+do6809MainCpuMapping:
+;@----------------------------------------------------------------------------
+	ldr r0,=m6809CPU0
+	ldr r1,=mainCpu
+	ldr r1,[r1]
 ;@----------------------------------------------------------------------------
 m6809Mapper:		;@ Rom paging.. r0=cpuptr, r1=romBase, r2=mapping table.
 ;@----------------------------------------------------------------------------
@@ -131,6 +135,8 @@ vromBase0:
 vromBase1:
 	.long 0
 promBase:
+	.long 0
+vlmBase:
 	.long 0
 
 	.section .bss
