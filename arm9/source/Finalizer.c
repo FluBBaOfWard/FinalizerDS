@@ -48,10 +48,10 @@ static const ArcadeRom finalizrRoms[17] = {
 	{"523h09.7f",   0x4000, 0x8896dc85},
 	// 18000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
-	{"523h10.2f",   0x0020, 0xec15dd15},
-	{"523h11.3f",   0x0020, 0x54be2e83},
-	{"523h13.11f",  0x0100, 0x4e0647a0},
-	{"523h12.10f",  0x0100, 0x53166a2a},
+	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
+	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette
+	{"523h12.10f",  0x0100, 0x53166a2a}, // Sprite Pal LUT
+	{"523h13.11f",  0x0100, 0x4e0647a0}, // Character Pal LUT
 };
 
 static const ArcadeRom finalizraRoms[17] = {
@@ -70,10 +70,10 @@ static const ArcadeRom finalizraRoms[17] = {
 	{"523h09.7f",   0x4000, 0x8896dc85},
 	// 18000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
-	{"523h10.2f",   0x0020, 0xec15dd15},
-	{"523h11.3f",   0x0020, 0x54be2e83},
-	{"523h13.11f",  0x0100, 0x4e0647a0},
-	{"523h12.10f",  0x0100, 0x53166a2a},
+	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
+	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette
+	{"523h12.10f",  0x0100, 0x53166a2a}, // Sprite Pal LUT
+	{"523h13.11f",  0x0100, 0x4e0647a0}, // Character Pal LUT
 };
 
 static const ArcadeRom finalizrbRoms[16] = {
@@ -91,10 +91,10 @@ static const ArcadeRom finalizrbRoms[16] = {
 	{"523h09.7f",   0x4000, 0x8896dc85},
 	// 18000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
-	{"523h10.2f",   0x0020, 0xec15dd15},
-	{"523h11.3f",   0x0020, 0x54be2e83},
-	{"523h13.11f",  0x0100, 0x4e0647a0},
-	{"523h12.10f",  0x0100, 0x53166a2a},
+	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
+	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette
+	{"523h12.10f",  0x0100, 0x53166a2a}, // Sprite Pal LUT
+	{"523h13.11f",  0x0100, 0x4e0647a0}, // Character Pal LUT
 };
 
 
