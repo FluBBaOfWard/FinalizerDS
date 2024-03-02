@@ -9,6 +9,10 @@ extern "C" {
 
 #define GAME_COUNT (3)
 
+extern const ArcadeRom finalizrRoms[20];
+extern const ArcadeRom finalizraRoms[20];
+extern const ArcadeRom finalizrbRoms[19];
+
 extern const ArcadeGame finalizrGames[GAME_COUNT];
 
 /// This runs all save state functions for each chip.

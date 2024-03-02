@@ -18,6 +18,12 @@ static const char *const settingName = "settings.cfg";
 ConfigData cfg;
 static int selectedGame = 0;
 
+const ArcadeGame allGames[GAME_COUNT] = {
+	AC_GAME("finalizr", "Finalizer - Super Transformation (set 1)", finalizrRoms)
+	AC_GAME("finalizra", "Finalizer - Super Transformation (set 2)", finalizraRoms)
+	AC_GAME("finalizrb", "Finalizer - Super Transformation (bootleg)", finalizrbRoms)
+};
+
 //---------------------------------------------------------------------------------
 int loadSettings() {
 	FILE *file;
@@ -101,7 +107,7 @@ void saveState() {
 
 //---------------------------------------------------------------------------------
 static bool loadRoms(int gameNr, bool doLoad) {
-	return loadACRoms(ROM_Space, finalizrGames, gameNr, ARRSIZE(finalizrGames), doLoad);
+	return loadACRoms(ROM_Space, allGames, gameNr, ARRSIZE(allGames), doLoad);
 }
 
 bool loadGame(int gameNr) {
@@ -113,7 +119,7 @@ bool loadGame(int gameNr) {
 	drawText(" Loading roms", 10, 0);
 	loadRoms(gameNr, true);
 	selectedGame = gameNr;
-	strlcpy(currentFilename, finalizrGames[selectedGame].gameName, sizeof(currentFilename));
+	strlcpy(currentFilename, allGames[selectedGame].gameName, sizeof(currentFilename));
 	setEmuSpeed(0);
 	loadCart(gameNr,0);
 	if (emuSettings & AUTOLOAD_STATE) {

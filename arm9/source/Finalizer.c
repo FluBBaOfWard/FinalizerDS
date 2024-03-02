@@ -32,8 +32,8 @@ int getStateSize() {
 	return size;
 }
 
-static const ArcadeRom finalizrRoms[17] = {
-	// ROM_REGION( 0x10000, "maincpu", 0 )
+const ArcadeRom finalizrRoms[20] = {
+	{ROM_REGION,   0x10000, (int)&mainCpu},
 	{"523k01.9c",   0x4000, 0x716633cb},
 	{"523k02.12c",  0x4000, 0x1bccc696},
 	{"523k03.13c",  0x4000, 0xc48927c6},
@@ -43,10 +43,11 @@ static const ArcadeRom finalizrRoms[17] = {
 	{"523h04.5e",   0x4000, 0xc056d710},
 	{"523h05.6e",   0x4000, 0xae0d0f76},
 	{"523h06.7e",   0x4000, 0xd2db9689},
+	{FILL0X00,      0x4000, 0x00000000}, // C000-ffff empty
 	{"523h07.5f",   0x4000, 0x50e512ba},
 	{"523h08.6f",   0x4000, 0x79f44e17},
 	{"523h09.7f",   0x4000, 0x8896dc85},
-	// 18000-1ffff empty
+	{FILL0X00,      0x4000, 0x00000000}, // 1C000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
 	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
 	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette
@@ -54,8 +55,8 @@ static const ArcadeRom finalizrRoms[17] = {
 	{"523h13.11f",  0x0100, 0x4e0647a0}, // Character Pal LUT
 };
 
-static const ArcadeRom finalizraRoms[17] = {
-	// ROM_REGION( 0x10000, "maincpu", 0 )
+const ArcadeRom finalizraRoms[20] = {
+	{ROM_REGION,   0x10000, (int)&mainCpu},
 	{"1.9c",        0x4000, 0x7d464e5c},
 	{"2.12c",       0x4000, 0x383dc94e},
 	{"3.13c",       0x4000, 0xce177f6e},
@@ -64,11 +65,12 @@ static const ArcadeRom finalizraRoms[17] = {
 	{ROM_REGION,   0x20000, (int)&vromBase0},
 	{"523h04.5e",   0x4000, 0xc056d710},
 	{"523h05.6e",   0x4000, 0xae0d0f76},
+	{FILL0X00,      0x4000, 0x00000000}, // C000-ffff empty
 	{"523h06.7e",   0x4000, 0xd2db9689},
 	{"523h07.5f",   0x4000, 0x50e512ba},
 	{"523h08.6f",   0x4000, 0x79f44e17},
 	{"523h09.7f",   0x4000, 0x8896dc85},
-	// 18000-1ffff empty
+	{FILL0X00,      0x4000, 0x00000000}, // 1C000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
 	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
 	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette
@@ -76,8 +78,8 @@ static const ArcadeRom finalizraRoms[17] = {
 	{"523h13.11f",  0x0100, 0x4e0647a0}, // Character Pal LUT
 };
 
-static const ArcadeRom finalizrbRoms[16] = {
-	// ROM_REGION( 0x10000, "maincpu", 0 )
+const ArcadeRom finalizrbRoms[19] = {
+	{ROM_REGION,   0x10000, (int)&mainCpu},
 	{"finalizr.5",  0x8000, 0xa55e3f14},
 	{"finalizr.6",  0x4000, 0xce177f6e},
 	{ROM_REGION,   0x1000, (int)&soundCpu}, // 8039
@@ -85,11 +87,12 @@ static const ArcadeRom finalizrbRoms[16] = {
 	{ROM_REGION,   0x20000, (int)&vromBase0},
 	{"523h04.5e",   0x4000, 0xc056d710},
 	{"523h05.6e",   0x4000, 0xae0d0f76},
+	{FILL0X00,      0x4000, 0x00000000}, // C000-ffff empty
 	{"523h06.7e",   0x4000, 0xd2db9689},
 	{"523h07.5f",   0x4000, 0x50e512ba},
 	{"523h08.6f",   0x4000, 0x79f44e17},
 	{"523h09.7f",   0x4000, 0x8896dc85},
-	// 18000-1ffff empty
+	{FILL0X00,      0x4000, 0x00000000}, // 1C000-1ffff empty
 	{ROM_REGION,     0x0240, (int)&promBase}, // PROMs at 2F & 3F are MMI 63S081N (or compatibles), PROMs at 10F & 11F are MMI 6301-1N (or compatibles)
 	{"523h10.2f",   0x0020, 0xec15dd15}, // RG Palette
 	{"523h11.3f",   0x0020, 0x54be2e83}, // B Palette

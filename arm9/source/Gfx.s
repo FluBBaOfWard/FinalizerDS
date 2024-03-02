@@ -2,7 +2,6 @@
 
 #include "Shared/nds_asm.h"
 #include "Shared/EmuSettings.h"
-#include "ARM6809/ARM6809.i"
 #include "K005849/K005849.i"
 
 	.global gfxState
@@ -14,6 +13,11 @@
 	.global k005849_0
 	.global k005885_0
 	.global emuRAM
+
+	.global GFX_DISPCNT
+	.global GFX_BG0CNT
+	.global GFX_BG1CNT
+	.global GFX_BG2CNT
 
 	.global gfxInit
 	.global gfxReset
@@ -32,6 +36,7 @@
 	.global k005885Ram_0W
 	.global k005885_0W
 
+	addy		.req r12		;@ Used by CPU cores
 
 	.syntax unified
 	.arm
@@ -65,7 +70,7 @@ gfxReset:					;@ Called with CPU reset
 	bl memclr_					;@ Clear GFX regs
 
 	mov r1,#REG_BASE
-	ldr r0,=0x08F8				;@ start-end
+	ldr r0,=0x00FF				;@ start-end
 	strh r0,[r1,#REG_WIN0H]
 	mov r0,#0x00C0				;@ start-end
 	strh r0,[r1,#REG_WIN0V]
@@ -88,42 +93,30 @@ gfxReset:					;@ Called with CPU reset
 
 	ldmfd sp!,{pc}
 ;@----------------------------------------------------------------------------
-bgInit:					;@ BG tiles
+bgInit:					;@ BG tiles, r0=chip type
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
+	cmp r0,#CHIP_K005849
 	ldr r0,=BG_GFX+0x8000		;@ r0 = NDS BG tileset
 	str r0,[koptr,#bgrGfxDest]
-	ldr r0,=Gfx1Bg
+	ldr r0,=Gfx1Bg				;@ r0 = DST tileset
 	str r0,[koptr,#spriteRomBase]
 	str r0,[koptr,#bgrRomBase]
-	ldr r1,=vromBase0
-	ldr r1,[r1]					;@ r1 = even bytes
-	add r2,r1,#0xC000			;@ r2 = odd bytes
-	mov r3,#0x18000				;@ Length
+	ldr r1,=vromBase0			;@ r1 = bitplane 0
+	ldr r1,[r1]
+	beq do5849Tiles
+	add r2,r1,#0x10000			;@ r2 = bitplane 1
+	mov r3,#0x20000				;@ Length
 	bl convertTiles5885
-	ldr r0,=BG_GFX+0x4000		;@ r0 = NDS BG tileset
-	bl addBackgroundTiles
-
-	ldmfd sp!,{lr}
-	bx lr
-;@----------------------------------------------------------------------------
-bgInit_:					;@ BG tiles
-;@----------------------------------------------------------------------------
-	stmfd sp!,{lr}
-	ldr r0,=BG_GFX+0x8000		;@ r0 = NDS BG tileset
-	str r0,[koptr,#bgrGfxDest]
-	ldr r0,=Gfx1Bg
-	str r0,[koptr,#spriteRomBase]
-	str r0,[koptr,#bgrRomBase]
-	ldr r1,=vromBase0
-	ldr r1,[r1]					;@ r1 = even bytes
+	b skip5849T
+do5849Tiles:
 	mov r2,#0x18000				;@ Length
 	bl convertTiles5849
+skip5849T:
 	ldr r0,=BG_GFX+0x4000		;@ r0 = NDS BG tileset
 	bl addBackgroundTiles
 
-	ldmfd sp!,{lr}
-	bx lr
+	ldmfd sp!,{pc}
 
 ;@----------------------------------------------------------------------------
 paletteInit:		;@ r0-r3 modified.
@@ -261,7 +254,10 @@ scrolLoop2:
 	ldr r2,dmaOamBuffer			;@ DMA3 src, OAM transfer:
 	mov r3,#OAM					;@ DMA3 dst
 	mov r4,#0x84000000			;@ noIRQ 32bit incsrc incdst
-	orr r4,r4,#64*2				;@ 64 sprites * 2 longwords
+	ldrb r7,gfxChipType
+	cmp r7,#CHIP_K005849
+	orreq r4,r4,#48*2			;@ 48 sprites * 2 longwords
+	orrne r4,r4,#64*2			;@ 64 sprites * 2 longwords
 	stmia r1,{r2-r4}			;@ DMA3 go
 
 	ldr r2,=EMUPALBUFF			;@ DMA3 src, Palette transfer:
@@ -270,9 +266,9 @@ scrolLoop2:
 	orr r4,r4,#0x100			;@ 256 words (1024 bytes)
 	stmia r1,{r2-r4}			;@ DMA3 go
 
-	ldr r0,=0x000A
 	ldr koptr,=k005885_0
 	ldrb r2,[koptr,#sprBank]
+	ldr r0,=0x000A
 	and r1,r2,#0x3				;@ Tile bank
 //	add r0,r0,r1,lsl#3
 	strh r0,[r6,#REG_BG0CNT]
@@ -335,12 +331,15 @@ endFrame:					;@ Called just before screen end (~line 240)	(r0-r2 safe to use)
 	bx lr
 
 ;@----------------------------------------------------------------------------
-DMA0BUFPTR:			.long 0
-
 tmpOamBuffer:		.long OAM_BUFFER1
 dmaOamBuffer:		.long OAM_BUFFER2
 
 oamBufferReady:		.long 0
+GFX_DISPCNT:		.long 0
+GFX_BG0CNT:			.short 0
+GFX_BG1CNT:			.short 0
+GFX_BG2CNT:			.short 0
+GFX_BG3CNT:			.short 0
 
 ;@----------------------------------------------------------------------------
 k005849Reset0:			;@ r0=periodicIrqFunc, r1=frameIrqFunc, r2=frame2IrqFunc
