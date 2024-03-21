@@ -80,6 +80,7 @@ gfxReset:					;@ Called with CPU reset
 	ldr r0,=m6809SetNMIPinCurrentCpu
 	ldr r1,=m6809SetIRQPinCurrentCpu
 	ldr r2,=m6809SetFIRQPinCurrentCpu
+	ldr r3,=GFX_RAM0
 	bl k005885Reset0
 	ldrb r0,gfxChipType
 	bl k005849SetType
@@ -345,7 +346,6 @@ GFX_BG3CNT:			.short 0
 ;@----------------------------------------------------------------------------
 k005849Reset0:			;@ r0=periodicIrqFunc, r1=frameIrqFunc, r2=frame2IrqFunc
 ;@----------------------------------------------------------------------------
-	ldr r3,=GFX_RAM0
 	adr koptr,k005849_0
 	b k005849Reset
 ;@----------------------------------------------------------------------------
@@ -437,6 +437,7 @@ gfxChipType:
 	.space 3
 
 	.section .bss
+	.align 2
 scrollTemp:
 	.space 0x100*4
 OAM_BUFFER1:
