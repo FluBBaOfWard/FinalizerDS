@@ -67,7 +67,7 @@ doCpuMappingFinalizer:
 ;@----------------------------------------------------------------------------
 finalizerMapping:						;@ Finalizer
 	.long emptySpace, FinalizerIO_R, FinalizerIO_W				;@ IO
-	.long emuRAM, k005885Ram_0R, k005885Ram_0W					;@ Graphic
+	.long GFX_RAM0, k005885Ram_0R, k005885Ram_0W				;@ Graphic
 	.long 0, mem6809R2, rom_W									;@ ROM
 	.long 1, mem6809R3, rom_W									;@ ROM
 	.long 2, mem6809R4, rom_W									;@ ROM
@@ -79,8 +79,7 @@ finalizerMapping:						;@ Finalizer
 do6809MainCpuMapping:
 ;@----------------------------------------------------------------------------
 	ldr r0,=m6809CPU0
-	ldr r1,=mainCpu
-	ldr r1,[r1]
+	ldr r1,mainCpu
 ;@----------------------------------------------------------------------------
 m6809Mapper:		;@ Rom paging.. r0=cpuptr, r1=romBase, r2=mapping table.
 ;@----------------------------------------------------------------------------
@@ -140,6 +139,7 @@ vlmBase:
 	.long 0
 
 	.section .bss
+	.align 2
 ROM_Space:
 	.space 0x2CA40
 emptySpace:

@@ -1,13 +1,15 @@
 # FinalizerDS V0.3.2
 
+This has now been superseded by <https://github.com/FluBBaOfWard/K80DS>.
+
 This is a Finalizer - Arcade emulator for the NDS.
 It has no tile priority support.
 You should still be able to enjoy the game though. =)
 
 ## How to use
 
-1. Create a "acDS" directory either in the root of your card or in the data
-directory (eg h:\data\acds). This is where settings and save files end up.
+1. Create a "acds" directory either in the root of your card or in the data
+ directory (eg h:\data\acds). This is where settings and save files end up.
 2. Now put finalizr.zip into a folder where you have (arcade) roms.
 3. Depending on your flashcart you might have to DLDI patch the emulator.
 
@@ -81,4 +83,4 @@ Fredrik Ahlström
 
 X/Twitter @TheRealFluBBa
 
-https://www.github.com/FluBBaOfWard
+<https://www.github.com/FluBBaOfWard>
